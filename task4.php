@@ -133,6 +133,6 @@ class BigNumber
             $result .= (string) $mind;
         }
 
-        return new BigNumber(strrev($result));
+        return new static(strrev($result));
     }
 }
