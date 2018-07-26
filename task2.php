@@ -14,6 +14,7 @@ $counter = 0;
 $counterFile = './counter.txt';
 if (file_exists($counterFile)) {
     if (!is_readable($counterFile)) {
+        /// Существующий файл не может быть прочитан
         /// Обработка ошибок в соотвествии с принятой концепцией
         /// Запись в лог, Exception
     } else {
@@ -21,6 +22,7 @@ if (file_exists($counterFile)) {
         if (is_numeric($data)) {
             $counter = (int)$data;
         } else {
+            /// Данные в файле счетчика не могут быть преобразованы в чистовой тип
             /// Обработка ошибок в соотвествии с принятой концепцией
             /// Запись в лог, Exception
         }
@@ -28,9 +30,14 @@ if (file_exists($counterFile)) {
 }
 
 if (file_exists($counterFile) && !is_writable($counterFile)) {
+    /// Существующий файл не может быть изменен
     /// Обработка ошибок в соотвествии с принятой концепцией
     /// Запись в лог, Exception
-} else {
+} elseif (is_writable(dirname($counterFile))) {
     $counter++;
     file_put_contents($counterFile, $counter);
+} else {
+    /// Отсутствует возможность создания файла в требуемой дирректории
+    /// Обработка ошибок в соотвествии с принятой концепцией
+    /// Запись в лог, Exception
 }
