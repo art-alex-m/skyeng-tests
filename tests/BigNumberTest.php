@@ -7,7 +7,7 @@
  * @time 14:53
  */
 
-include ('../BigNumber.php');
+include('../task4.php');
 
 use PHPUnit\Framework\TestCase;
 
@@ -48,11 +48,14 @@ class BigNumberTest extends TestCase
     {
        $numberA = new BigNumber($first);
        $numberB = new BigNumber($second);
-       $numberR = $numberA->sum($numberB);
+       $numberR = BigNumber::sum($numberA, $numberB);
        $this->assertInstanceOf(BigNumber::class, $numberR);
        $this->assertEquals($result, $numberR->getNumber());
     }
 
+    /**
+     * Проверяет получение перевернутого числа
+     */
     public function testGetReversed()
     {
         $number = '123456';
@@ -61,6 +64,7 @@ class BigNumberTest extends TestCase
     }
 
     /**
+     * Проверяет вычисление количества цифр в числе в различных ситуациях
      * @dataProvider dataGetLengthProvider
      */
     public function testGetLength($first, $len)
@@ -69,6 +73,11 @@ class BigNumberTest extends TestCase
         $this->assertEquals($len, $num->getLength());
     }
 
+    /**
+     * Данные для тестирования вычисления длины в различных ситуациях
+     * @return array
+     * @see testGetLength()
+     */
     public function dataGetLengthProvider()
     {
         return [
@@ -82,13 +91,14 @@ class BigNumberTest extends TestCase
     /**
      * Данные для проверки суммирования в разных ситуациях
      * @return array
+     * @see testSum()
      */
     public function dataSumProvider()
     {
         return [
             ['123', '123', '246'],
             ['1234', '123', '1357'],
-            ['123', '12345', '12468'],
+            ['123', '1234', '1357'],
             ['9', '9', '18'],
             ['0', '0', '0'],
             ['1', '0', '1'],

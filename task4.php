@@ -1,8 +1,10 @@
 <?php
 /**
- * BigNumber.php
+ * task4.php
  *
- * Класс для работы с большими числами
+ * Дано два числа в виде строки. Числа могут быть очень большими,
+ * могут не поместиться в 64 битный integer.
+ * Написать функцию, которая вернет сумму этих чисел
  *
  * Created by PhpStorm.
  * @date 26.07.18
@@ -11,7 +13,9 @@
 
 /**
  * Class BigNumber
+ *
  * Класс для работы с большими числами
+ * Класс может складывать числа целого типа
  */
 class BigNumber
 {
@@ -28,12 +32,12 @@ class BigNumber
     {
         $this->original = (string) $bigNumberAsString;
 
-        if ($this->getLength() > 1) {
-            $this->original = ltrim($this->original, '0');
-        }
-
         if ($this->original == '') {
             $this->original = '0';
+        }
+
+        if ($this->getLength() > 1) {
+            $this->original = ltrim($this->original, '0');
         }
 
         $this->reversed = strrev($this->original);
@@ -79,13 +83,23 @@ class BigNumber
 
     /**
      * Сумма двух больших чисел
-     * @param BigNumber $secondNum
-     * @return BigNumber
+     *
+     * ```php
+     * $numA = new BigNumber('123456789');
+     * $numB = new BigNumber('900000000');
+     * $numR = BigNumber::sum($numA, $numB);
+     *
+     * echo $numR; /// 1023456789
+     * ```
+     *
+     * @param BigNumber $firstNum Первое большое число
+     * @param BigNumber $secondNum Второе большое число
+     * @return BigNumber Результат сложения двух чисел
      */
-    public function sum(BigNumber $secondNum)
+    public static function sum(BigNumber $firstNum, BigNumber $secondNum)
     {
-        $firstLen = $this->getLength();
-        $first = $this->getReversed();
+        $firstLen = $firstNum->getLength();
+        $first = $firstNum->getReversed();
 
         $second = $secondNum->getReversed();
         $secondLen = $secondNum->getLength();
@@ -93,8 +107,8 @@ class BigNumber
         if ($firstLen < $secondLen) {
             $first = $second;
             $firstLen = $secondLen;
-            $second = $this->getReversed();
-            $secondLen = $this->getLength();
+            $second = $firstNum->getReversed();
+            $secondLen = $firstNum->getLength();
         }
 
         $mind = 0;
