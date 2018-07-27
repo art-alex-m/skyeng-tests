@@ -126,13 +126,13 @@ class BigNumber
             } else {
                 $mind = 0;
             }
-            $result .= (string) $digitR;
+            $result = (string) $digitR . $result;
         }
 
         if ($mind > 0) {
-            $result .= (string) $mind;
+            $result = (string) $mind . $result;
         }
 
-        return new static(strrev($result));
+        return new static($result);
     }
 }
