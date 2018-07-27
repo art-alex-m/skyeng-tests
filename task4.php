@@ -32,12 +32,12 @@ class BigNumber
     {
         $this->original = (string) $bigNumberAsString;
 
-        if ($this->original == '') {
-            $this->original = '0';
-        }
-
         if ($this->getLength() > 1) {
             $this->original = ltrim($this->original, '0');
+        }
+
+        if ($this->original == '') {
+            $this->original = '0';
         }
 
         $this->reversed = strrev($this->original);

@@ -35,6 +35,10 @@ class BigNumberTest extends TestCase
         $number = '123456';
         $num = new BigNumber($number);
         $this->assertEquals($number, $num->getNumber());
+
+        $number = '000';
+        $num = new BigNumber($number);
+        $this->assertEquals('0', $num->getNumber());
     }
 
     /**
@@ -85,6 +89,8 @@ class BigNumberTest extends TestCase
             ['0123', 3],
             ['123', 3],
             ['', 1],
+            ['000', 1],
+            ['0', 1],
         ];
     }
 
