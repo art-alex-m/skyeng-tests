@@ -23,11 +23,11 @@ create table books_to_authors
   id serial not null
     constraint books_to_authors_pkey
     primary key,
-  book_id integer not null
+  book_id serial not null
     constraint books_id_fk
     references books
     on delete cascade,
-  author_id integer not null
+  author_id serial not null
     constraint authors_id_fk
     references authors
     on delete cascade
